@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+em,
+i {
+    font-style: normal;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C81623;
+}
+
+button,
+input {
+    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif
+}
+
+body {
+    /*CSS3 抗锯齿形，让文字显示更加清晰*/
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    font: 12px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+    color: #666
+        /*字体的大小是12px行高1.5*/
+}
+
+.hide,
+.none {
+    display: none
+}
+
+.return-top {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 10;
+    display: block;
+    visibility: hidden;
+    width: 60px;
+    height: 60px;
+    background: url(../resources/returnTop.png) no-repeat 0 0
+}
+
+.return-top:hover {
+    background-position: 0 -70px
+}
+
+div#images {
+    width: 100%;
+    height: 600px
+}
+
+div#images img {
+    width: 100%;
+    height: 100%;
+}
+
+#index_account_temp {
+    display: none;
+}
+
+iframe {
+    display: block;
+    border: 1px solid darkblue;
+}
+
+div.container .card:hover {
+    transform: translate(0, -10px);
+    box-shadow: 0px 0px 50px -1px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s;
+}
+
+div.gift {
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+}
+
+.img_hover:hover {
+    transform: scale(1.03);
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+div.info_author {
+    position: fixed;
+    width: 300px;
+    height: 150px;
+    right: 10px;
+    top: 50%;
+    transition: all 0.5s;
+}
+
+div.info_author img {
+    width: 100px;
+    height: 100px;
+}
+
+div.info_author span {
+    text-align: center;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    cursor: pointer;
+}
+
+@media (min-width: 1025px) {
+    section#nav {
+        background: #fff;
+        bottom: 0;
+        -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 30%;
+    }
+
+    main {
+        background-color: #fff;
+        width: 70%;
+        position: absolute;
+        right: 0;
+        -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+    }
+
+    iframe {
+        height: 1000px;
+    }
+
+}
+
+
+@media (max-width: 1024px) {
+
+
+    iframe {
+        border: 1px dotted blue;
+        height: 1000px;
+    }
+
+    div.gift {
+        display: flex;
+    }
+
+    div.info_author {
+        display: none;
+    }
+
+
+}
+
+@media (max-width: 992px) {
+    #index_account {
+        display: none;
+        order: 3;
+    }
+
+    #index_account_temp {
+        display: block;
+
+    }
+
+    #img_box {
+
+        order: 1;
+    }
+
+    #sub_box {
+        src: url("/log.html");
+    }
+
+
+}

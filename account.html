@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的账户</title>
+    <link rel="Shortcut Icon" href="./resources/logo_none.png" />
+    <link rel="stylesheet" href="./bootstrap-5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/account.css">
+    <link rel="stylesheet" href="/css/animate/animate.min.css">
+</head>
+
+<body>
+    <div class="container-fluid mb-0">
+        <img src="./resources/welcome_1.jpg" id="welcome_img" class="d-block w-100 img-fluid img-thumbnail-1" alt="...">
+    </div>
+
+    <ul class="nav nav-tabs bg-light bg-gradient mt-1 d-flex justify-content-around">
+        <li class="nav-item w-30">
+            <a class="nav-link btn btn-success text-success fs-5" id="change_log" href="#">登录</a>
+        </li>
+        <li class="nav-item w-30">
+            <a class="nav-link btn-success text-success fs-5" id="change_reg" href="#">注册</a>
+        </li>
+    </ul>
+
+    <iframe src="./log.html" width="100%" height="300px" frameborder="0" class="bg-dark"></iframe>
+
+    <div class="container-fluid bg-success text-light" id="bottom_box">
+
+        <div class="bottom_label pt-5">
+            <h3 class="animate__animated animate__bounce animate__slow animate__infinite">不以物喜，不以己悲📙</h3>
+            <p class="fs-5">Let life be beautiful like summer flowers and death like autumn leaves.</p>
+        </div>
+
+
+
+    </div>
+
+
+    <script src="./jquery/jquery-3.6.1.min.js"></script>
+    <scrip src="./bootstrap-5.1.3/js/bootstrap.min.js">
+        </script>
+        <script>
+            $(function () {
+                // 切换页面
+                $("#change_log").click(function () {
+                    $("iframe").css("height","300px")
+                    $("#welcome_img").attr("src", "./resources/welcome_1.jpg");
+                    $("iframe").attr("src", "./log.html");
+                });
+                $("#change_reg").click(function () {
+                    $("iframe").css("height","450px")
+                    $("#welcome_img").attr("src", "./resources/welcome_2.jpg");
+                    $("iframe").attr("src", "./reg.html");
+                });
+            });
+        </script>
+</body>
+
+</html>

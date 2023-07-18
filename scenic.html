@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景点</title>
+    <link rel="Shortcut Icon" href="./resources/logo_none.png" />
+    <link rel="stylesheet" href="./css/animate/animate.min.css">
+    <link rel="stylesheet" href="./bootstrap-5.1.3/css/bootstrap.min.css">
+    <style>
+        ul,
+        li {
+            list-style: none;
+        }
+
+        #pager {
+            padding: 0;
+            float: left;
+            margin: 10px;
+            /* width: 400px; */
+            height: 30px;
+            -webkit-user-select: none;
+        }
+
+        #pager li {
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            margin: 0 3px 0 3px;
+            text-align: center;
+            vertical-align: top;
+            display: inline-block;
+            list-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #pager li:first-child {
+            width: 46px;
+            height: 32px;
+            box-sizing: border-box;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #262626;
+        }
+
+        #pager li:last-child {
+            width: 46px;
+            height: 32px;
+            box-sizing: border-box;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #262626;
+        }
+
+        .pagerBtn {
+            color: #333;
+            background: white;
+            border: 1px solid #d7d7d7;
+        }
+
+        .pagerBtn:hover {
+            color: #ffd44a !important;
+            /* background: rgb(201, 201, 255); */
+        }
+
+        .pagerChoosed {
+            color: #262626;
+            background: #ffd44a;
+            border: 1px solid #ffd44a;
+        }
+
+        .pagerOmit {
+            color: #333;
+            background: #f9f9f9;
+            border: 1px solid #d7d7d7;
+        }
+
+        .dis-style {
+            color: #d2d2d2 !important;
+            cursor: not-allowed !important;
+        }
+
+        .dis-style:hover {
+            color: #d2d2d2 !important;
+        }
+
+        /* 样式 */
+        .page_box {
+            display: none;
+        }
+
+        .on {
+            display: block;
+        }
+
+
+        .scenic_ul {
+            width: 100%;
+            margin: 0 auto 50px auto
+        }
+
+        .scenic_ul>li {
+            width: 100%;
+            height: 335px;
+            margin-top: 30px;
+            background-color: #fff;
+            border: 1px solid #e6e6e6
+        }
+
+        .scenic_ul .animate_img {
+            background-color: gray;
+            width: 100%;
+            overflow: hidden;
+            height: 306px;
+            margin: 14px 0 14px 14px;
+            cursor: pointer
+        }
+
+        .scenic_ul .animate_img img {
+            display: block;
+            height: 100%;
+            margin: 0 auto
+        }
+
+        .scenic_ul .more {
+            display: none;
+            margin-left: -58px;
+            margin-top: -20px;
+            width: 116px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            font-style: normal;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px
+        }
+
+        .scenic_ul>li:hover {
+            background-color: #ebfdf4;
+            border: 1px solid transparent
+        }
+
+        .animate_img:hover .more {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+        }
+
+        .hot_name {
+            width: 40%;
+            padding: 21px 15px;
+            border-right: 1px solid #e6e6e6
+        }
+
+        .hot_top {
+            padding-bottom: 15px
+        }
+
+        .hot_top .scen_tit,
+        .hot_top .scen_tit_a {
+            width: 100%;
+            height: 54px;
+            color: #13c76c;
+            font: normal 28px/54px SimSun;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .hot_top .tag_s {
+            margin-right: 10px;
+            padding: 5px 7px 6px;
+            color: #fff;
+            background-color: #13c76c;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px
+        }
+
+        .hot_bottom {
+            margin-top: 12px;
+            padding-bottom: 17px;
+        }
+
+        .hot_info {
+            height: 26px;
+            padding-right: 20px;
+            line-height: 26px;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+        .scenic_ul .sce_icon {
+            background: url(./resources/scenic/sce_icon.png) no-repeat 0;
+
+        }
+
+        .hot_info .sce_icon {
+            width: 26px;
+            height: 26px;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+
+        .hot_info .info01 {
+            background-position: 0 -36px;
+
+        }
+
+        .hot_info .info02 {
+            background-position: 0 -72px
+        }
+
+        .hot_info .info03 {
+            background-position: 0 -108px
+        }
+
+        .hot_info .info04 {
+            background-position: 0 -144px
+        }
+
+        .hot_info .info05 {
+            background-position: 0 0
+        }
+
+        .hot_btn {
+            width: 100%;
+            padding-top: 81px;
+        }
+
+        .hot_btn a {
+            position: relative;
+            width: 100%;
+            height: 36px;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            text-align: center;
+            line-height: 36px;
+            color: #fff;
+            font-size: 14px;
+            display: block;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px
+        }
+
+        .h_bnt01 {
+            background-color: #5fd5ff
+        }
+
+        .h_bnt01:hover {
+            background-color: #08b6f4
+        }
+
+        .h_bnt02 {
+            background-color: #faa
+        }
+
+        .h_bnt02:hover {
+            background-color: #ff4d4d
+        }
+
+        .h_bnt03 {
+            background-color: #9ed337
+        }
+
+        .h_bnt03:hover {
+            background-color: #7ebe00
+        }
+
+        .h_bnt04 {
+            background-color: #ffb33b
+        }
+
+        .h_bnt04:hover {
+            background-color: #ff9c00
+        }
+
+        .h_bntGrey {
+            background-color: #8a8a8a
+        }
+
+        .h_bntGrey:hover {
+            background-color: #8a8a8a
+        }
+
+        .hot_btn .sce_icon {
+            width: 18px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: auto 6px auto 25px
+        }
+
+        .h_bnt01 .sce_icon {
+            background-position: 0 -189px
+        }
+
+        .h_bnt02 .sce_icon {
+            background-position: 0 -221px
+        }
+
+        .h_bnt03 .sce_icon {
+            background-position: 0 -245px
+        }
+
+        .h_bnt04 .sce_icon {
+            height: 16px;
+            margin-top: -2px;
+            background-position: 0 -267px
+        }
+
+        .clearfix_box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ul.page_box {
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        ul.page_box li {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+
+        @media screen and (max-width: 768px) {
+
+            .main_box {
+                width: 100%;
+                padding: 0;
+            }
+
+            .main_box .page_box {
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            li p.animate_img {
+                display: none;
+
+            }
+
+            li div.hot_name {
+                width: 70%;
+            }
+
+            li div.hot_bottom {
+                width: 100%;
+            }
+
+            li div.hot_btn {
+                width: 30%;
+            }
+        }
+    </style>
+
+<body>
+    <div class="container-fluid">
+        <img src="./resources/scenic/banner.jpg" alt="" class="img-fluid" style="width: 100%; margin: 0;">
+    </div>
+    <div class="container-fluid main_box">
+        <!-- box1 -->
+        <ul class="scenic_ul zoom_box container page_box on" id="page_box_1" style="margin: 0 auto;">
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296291"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1503885716053/18103539pn0x.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州老窖旅游区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296291"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296291">泸州老窖旅游区</a>
+                        </h2> <span class="tag_s">江阳区</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：50元</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-17:30</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-2393388</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://lzy.lzlj.com/"
+                                target="_blank" style="color: #333;">http://lzy.lzlj.com/</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市江阳区三星街国窖广场1号楼</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction">
+                    <a class="h_bnt01 shareA" data-id="897023192868296291"><span
+                            class="sce_icon "></span>去过(<i>3</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296291"><span class="sce_icon"></span>想去(<i>2</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296291"><span
+                            class="sce_icon "></span>点赞(<i>3</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10397 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a>
+                </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296293"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504334053108/黄荆老林12.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="黄荆老林旅游景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296293"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296293">黄荆老林旅游景区</a>
+                        </h2> <span class="tag_s">古蔺县</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：58元</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：07:30-16:30</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-7060166</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a
+                                href="http://gl.517sc.com/huangjing.html" target="_blank"
+                                style="color: #333;">http://gl.517sc.com/huangjing.html</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市古蔺县西北部</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296293"><span
+                            class="sce_icon "></span>去过(<i>2</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296293"><span class="sce_icon"></span>想去(<i>2</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296293"><span
+                            class="sce_icon "></span>点赞(<i>3</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10833 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296296"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1503888913249/1810251363hw.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="太平古镇景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296296"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296296">太平古镇景区</a>
+                        </h2> <span class="tag_s">古蔺县</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-17:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-7400170</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a
+                                href="http://gl.517sc.com/taiping.html" target="_blank"
+                                style="color: #333;">http://gl.517sc.com/taiping.html</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市古蔺赤水河南岸</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296296"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296296"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296296"><span
+                            class="sce_icon "></span>点赞(<i>2</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10398 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296307"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504334539622/天仙硐山门.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="天仙硐风景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296307"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296307">天仙硐风景区</a>
+                        </h2> <span class="tag_s">纳溪区</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-18:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-4700011</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://www.tianxiandong.cn/"
+                                target="_blank" style="color: #333;">http://www.tianxiandong.cn/</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市纳溪区天仙镇</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296307"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296307"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296307"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10836 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296292"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1503889150753/17135014894r.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="张坝桂圆林旅游景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296292"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296292">张坝桂圆林旅游景区</a>
+                        </h2> <span class="tag_s">江阳区</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-17:30</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-8566675</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://www.zbgyl.com"
+                                target="_blank" style="color: #333;">http://www.zbgyl.com</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市江阳区茜草街道</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296292"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296292"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296292"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10400 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296306"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504335001388/花田酒地旅游景区.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州市纳溪区花田酒地旅游景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296306"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296306">泸州市纳溪区花田酒地旅游景区</a>
+                        </h2> <span class="tag_s">纳溪区</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：20元</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：夏季07:30-18:30；冬季08:30-17:30</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-4602509</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://www.qingxigu.com"
+                                target="_blank" style="color: #333;">http://www.qingxigu.com</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市纳溪区大渡口镇玉村西北方向约2.50公里</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296306"><span
+                            class="sce_icon "></span>去过(<i>2</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296306"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296306"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10390 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+        </ul>
+
+        <!-- box2 -->
+        <ul class="scenic_ul zoom_box page_box" id="page_box_2">
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296315"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504333917590/龙桥文化.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州龙桥文化生态园旅游景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296315"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296315">泸州龙桥文化生态园旅游景区</a>
+                        </h2> <span class="tag_s">泸县</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：08:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-8188386</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://www.lqwhsty.com/"
+                                target="_blank" style="color: #333;">http://www.lqwhsty.com/</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市泸县福集镇水竹林村北方向约1.19公里</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296315"><span
+                            class="sce_icon "></span>去过(<i>3</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296315"><span class="sce_icon"></span>想去(<i>2</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296315"><span
+                            class="sce_icon "></span>点赞(<i>2</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10834 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296303"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504333576389/08131441ayt7.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州凤凰湖旅游景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296303"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296303">泸州凤凰湖旅游景区</a>
+                        </h2> <span class="tag_s">纳溪区</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-4699272</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://www.517fhh.com/"
+                                target="_blank" style="color: #333;">http://www.517fhh.com/</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市纳溪区大渡口镇坪桥村</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296303"><span
+                            class="sce_icon "></span>去过(<i>2</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296303"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296303"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296290"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/hzcloud/web/zxw/content/1574307967778玉蟾风光 (5).jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州玉蟾山风景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296290"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296290">泸州玉蟾山风景区</a>
+                        </h2> <span class="tag_s">泸县</span> <span class="tag_s"> AAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：20元</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：08:00-18:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-8188386</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市泸县得胜镇桐乐村西北方向约1.77公里</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296290"><span
+                            class="sce_icon "></span>去过(<i>3</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296290"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296290"><span
+                            class="sce_icon "></span>点赞(<i>2</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10838 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296301"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504333812324/方山.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州方山旅游区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296301"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296301">泸州方山旅游区</a>
+                        </h2> <span class="tag_s">江阳区</span> <span class="tag_s"> AAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：15元</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：07:00-19:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-3128138</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市江阳区方山镇方山村</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296301"><span
+                            class="sce_icon "></span>去过(<i>3</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296301"><span class="sce_icon"></span>想去(<i>2</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296301"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10389 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296299"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1503891521246/081338285a7l.png?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州春秋祠"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296299"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296299">泸州春秋祠</a>
+                        </h2> <span class="tag_s">叙永县</span> <span class="tag_s"> AA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：08:30-18:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-6266566</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市叙永县叙永镇南大街4号</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296299"><span
+                            class="sce_icon "></span>去过(<i>2</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296299"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296299"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296298"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504337267999/朱德旧居陈列馆.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州朱德旧居陈列馆"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296298"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296298">泸州朱德旧居陈列馆</a>
+                        </h2> <span class="tag_s">江阳区</span> <span class="tag_s"> AA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-17:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-3720013</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市江阳区中大街265号</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296298"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296298"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296298"><span
+                            class="sce_icon "></span>点赞(<i>2</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+        </ul>
+        <!-- box3 -->
+        <ul class="scenic_ul zoom_box page_box" id="page_box_3">
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296335"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1503891775759/07174330zjak.png?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州乌木水寨"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296335"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296335">泸州乌木水寨</a>
+                        </h2> <span class="tag_s">纳溪区</span> <span class="tag_s"> AA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-18:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-4692188</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市纳溪区大渡口镇平桥村二社</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296335"><span
+                            class="sce_icon "></span>去过(<i>0</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296335"><span class="sce_icon"></span>想去(<i>1</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296335"><span
+                            class="sce_icon "></span>点赞(<i>0</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1399306441385545753"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州沈子国酒庄"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1399306441385545753"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1399306441385545753">泸州沈子国酒庄</a>
+                        </h2> <span class="tag_s">江阳区</span> <span class="tag_s"> AAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：暂无</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：18111185999</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市江阳区邻玉街道</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="1399306441385545753"><span
+                            class="sce_icon "></span>去过(<i>0</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="1399306441385545753"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="1399306441385545753"><span
+                            class="sce_icon "></span>点赞(<i>0</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1068480365883265024"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州古郎洞风景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1068480365883265024"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1068480365883265024">泸州古郎洞风景区</a>
+                        </h2> <span class="tag_s">古蔺县</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：60（不含景区其他业态）</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：09:00-18:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-7770666</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市古蔺县东新镇</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="1068480365883265024"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="1068480365883265024"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="1068480365883265024"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1015412660586647598"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州董允坝伞乡景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1015412660586647598"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1015412660586647598">泸州董允坝伞乡景区</a>
+                        </h2> <span class="tag_s">江阳区</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免票（大棚收费）</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：18113512688</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市江阳区分水岭镇董允坝村</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="1015412660586647598"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="1015412660586647598"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="1015412660586647598"><span
+                            class="sce_icon "></span>点赞(<i>0</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1015412660586647576"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州佛宝森林公园"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1015412660586647576"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=1015412660586647576">泸州佛宝森林公园</a>
+                        </h2> <span class="tag_s">合江县</span> <span class="tag_s"> AAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-8867777</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市合江县</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="1015412660586647576"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="1015412660586647576"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="1015412660586647576"><span
+                            class="sce_icon "></span>点赞(<i>0</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193483"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州尧坝古镇"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193483"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193483">泸州尧坝古镇</a>
+                        </h2> <span class="tag_s">合江县</span> <span class="tag_s"> AAAA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天开放</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-5135903</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：<a href="http://www.ybgzjq.com/"
+                                target="_blank" style="color: #333;">http://www.ybgzjq.com/</a> </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：四川省泸州市合江县尧坝镇</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="954244668457193483"><span
+                            class="sce_icon "></span>去过(<i>2</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="954244668457193483"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="954244668457193483"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+        </ul>
+        <!-- box4 -->
+        <ul class="scenic_ul zoom_box page_box" id="page_box_4">
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193546"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州梦里水乡田园度假农场"> </a>
+                    <a href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193546"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193546">泸州梦里水乡田园度假农场</a>
+                        </h2> <span class="tag_s">纳溪区</span> <span class="tag_s"> 非A级景区 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：暂无</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-4255778</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市纳溪区大渡口镇平桥村</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="954244668457193546"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="954244668457193546"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="954244668457193546"><span
+                            class="sce_icon "></span>点赞(<i>0</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193594"> <img
+                            class="animate" src="./images/zw.png" onerror="tools.errImg(this)" alt="泸州富民新村旅游景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193594"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=954244668457193594">泸州富民新村旅游景区</a>
+                        </h2> <span class="tag_s">古蔺县</span> <span class="tag_s"> AA级 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-7040006</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市大寨苗族乡富民村</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="954244668457193594"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="954244668457193594"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="954244668457193594"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296326"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504339501829/龙马潭公园.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州龙马潭公园"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296326"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296326">泸州龙马潭公园</a>
+                        </h2> <span class="tag_s">龙马潭区</span> <span class="tag_s"> 非A级景区 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天开放</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-2700922</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市龙马潭区特兴镇080乡道</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296326"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296326"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296326"><span
+                            class="sce_icon "></span>点赞(<i>0</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296321"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504340044831/鱼凫古街.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州鱼凫古街"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296321"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296321">泸州鱼凫古街</a>
+                        </h2> <span class="tag_s">叙永县</span> <span class="tag_s"> 非A级景区 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：全天开放</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-6234683</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市叙永县南大街307号</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296321"><span
+                            class="sce_icon "></span>去过(<i>3</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296321"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296321"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296311"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504340799641/玉龙湖景区.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州玉龙湖景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296311"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296311">泸州玉龙湖景区</a>
+                        </h2> <span class="tag_s">泸县</span> <span class="tag_s"> 非A级景区 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：免费</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：07:30-18:30</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-8795152</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市泸县立石镇三溪村北方向</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296311"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296311"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296311"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04 h_bntGrey"
+                        style="cursor: default;" target="_blank"><i class="sce_icon"></i>720°全景</a> </p>
+            </li>
+            <li class="clearfix_box">
+                <p class="fl animate_img "> <a class="disIB wh100 e6"
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296316"> <img
+                            class="animate"
+                            src="http://file.geeker.com.cn/uploadfile/hzcloud/web/zxw/content/1504341535410/丹山风景区.jpg?x-oss-process=image/watermark,image_dXBsb2FkZmlsZS9oemNsb3VkL3dlYi96eHcvY29udGVudC8xNTA5MDgzNTUwNzQ1L-azuOW3ni5wbmc=,t_40,g_se,x_10,y_10"
+                            onerror="tools.errImg(this)" alt="泸州丹山风景区"> </a> <a
+                        href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296316"
+                        class="more op50 op_a1 ">查看详情</a> </p>
+                <div class="fl hot_name">
+                    <div class="hot_top">
+                        <h2 class="scen_tit"><a class="scen_tit_a"
+                                href="/scenic-desc.html?channelCode=mllz&amp;code=jddq&amp;id=897023192868296316">泸州丹山风景区</a>
+                        </h2> <span class="tag_s">叙永县</span> <span class="tag_s"> 非A级景区 </span>
+                    </div>
+                    <div class="hot_bottom">
+                        <p class="hot_info"><i class="info01 sce_icon"></i>门票价格：20元</p>
+                        <p class="hot_info"><i class="info02 sce_icon"></i>开放时间：08:00-18:00</p>
+                        <p class="hot_info"><i class="info03 sce_icon"></i>景区电话：0830-6233041</p>
+                        <p class="hot_info"><i class="info05 sce_icon"></i>景区官网：暂无 </p>
+                        <p class="hot_info"><i class="info04 sce_icon"></i>景区地址：泸州市叙永县城东16公里处</p>
+                    </div>
+                </div>
+                <p class="fl hot_btn interaction"> <a class="h_bnt01 shareA" data-id="897023192868296316"><span
+                            class="sce_icon "></span>去过(<i>1</i>)</a> <a class="h_bnt02 wantA"
+                        data-id="897023192868296316"><span class="sce_icon"></span>想去(<i>0</i>)</a> <a
+                        class="h_bnt03 good" data-id="897023192868296316"><span
+                            class="sce_icon "></span>点赞(<i>1</i>)</a> <a class="h_bnt04"
+                        href=" http://720.geeker.com.cn/rest/indexNew/view.action?id=10634 " target="_blank"><i
+                            class="sce_icon"></i>720°全景</a> </p>
+            </li>
+        </ul>
+
+
+
+    </div>
+    <!-- 分页 -->
+    <div class="container-fluid d-flex justify-content-center">
+        <ul id="pager" total="" size=""></ul>
+    </div>
+    <script src="./jquery/jquery-3.6.1.min.js"></script>
+    <script src="./bootstrap-5.1.3/js/bootstrap.min.js"></script>
+    <script>
+        let totalNum = 24
+        let pageSize = 6
+        var selindex = 1
+        setPager(1, totalNum, pageSize)
+
+        function setPager(page, total, size) {
+            $('#pager').html('').attr('total', total).attr('size', size)
+            var cursor = 1
+            var index = 0
+            var pi = page - 2
+            var li = Math.ceil(total / size) + 1
+            for (; cursor < li; cursor++, index++) {
+                if (li > 10 && page >= 6 && pi >= 4 && cursor == 2) {
+                    $('#pager').append('<li class="pagerOmit">...</li>')
+                    cursor = pi > li - 7 ? li - 7 : pi
+                }
+                if (cursor > 7 && index > 5 && li - cursor > 2) {
+                    $('#pager').append('<li class="pagerOmit">...</li>')
+                    cursor = li - 1
+                }
+                $('#pager').append(
+                    '<li class="pager' +
+                    (cursor == page ? 'Choosed' : 'Btn') +
+                    '">' +
+                    cursor +
+                    '</li>'
+                )
+            }
+            $('#pager').prepend(
+                '<li class="pagerBtn pagebegin pagebegin_font">首页</li><li class="pagerBtn pagebegin pagebegin_arrow"><</li>'
+            )
+            $('#pager').append(
+                '<li class="pagerBtn pagerend pagerend_arrow">></li><li class="pagerBtn pagerend pagerend_font">尾页</li>'
+            )
+
+            if (selindex == 1) {
+                $('.pagebegin').addClass('dis-style')
+            }
+
+            $('ul li').click(function () {
+
+                // 点击页码
+                $("#page_box_" + $(this).text()).addClass("on").siblings().removeClass("on");
+
+                // 点击不可点击的按钮
+                if ($(this).attr('class').indexOf('dis-style') > -1) {
+                    // alert("点击失效");
+                    return
+                }
+                if ($(this).text().indexOf('dis-style') > -1) {
+                    // alert("second");
+                    return
+                }
+
+                // 点击左箭头
+                $(this).text()
+                if ($(this).attr('class').indexOf('pagebegin_arrow') > -1) {
+                    selindex--
+                    setPager(selindex, total, size)
+                    if (selindex < 2) {
+                        $('.pagebegin').addClass('dis-style')
+                    }
+                    // alert("third");
+                    return
+                }
+
+                // 点击首页
+                if ($(this).attr('class').indexOf('pagebegin_font') > -1) {
+                    selindex = 1
+                    setPager(selindex, total, size)
+                    $('.pagebegin').addClass('dis-style')
+                    // alert("首页");
+                    return
+                }
+                // 点击右箭头
+                if ($(this).attr('class').indexOf('pagerend_arrow') > -1) {
+                    selindex++
+                    setPager(selindex, total, size)
+
+                    if (selindex == Math.ceil(total / size)) {
+                        $('.pagerend').addClass('dis-style')
+                    }
+                    // alert("fifth");
+                    return
+                }
+                // 点击尾页
+                if ($(this).attr('class').indexOf('pagerend_font') > -1) {
+                    selindex = Math.ceil(total / size)
+                    setPager(selindex, total, size)
+                    $('.pagerend').addClass('dis-style')
+                    // alert("尾页");
+                    return
+                }
+                selindex = $(this).text()
+                setPager(selindex, total, size)
+                if (selindex == Math.ceil(total / size)) {
+                    $('.pagerend').addClass('dis-style')
+                } else {
+                    $('.pagerend').removeClass('dis-style')
+                }
+                if (selindex == 1) {
+                    $('.pagebegin').addClass('dis-style')
+                } else {
+                    $('.pagebegin').removeClass('dis-style')
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

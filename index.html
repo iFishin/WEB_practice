@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>醉美泸州</title>
+  <link rel="Shortcut Icon" href="./resources/logo_none.png" />
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./bootstrap-5.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+  <a class="return-top" title="点击返回顶部" style="visibility: visible;"></a>
+  <section id="nav">
+    <!-- navbar-expand-lg -->
+    <nav class="navbar navbar-dark bg-success" id="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+          <img class="img-fluid" src="./resources/logo_none.png" alt="醉美泸州">
+        </a>
+        <!-- 这里多一个按钮会挤压 -->
+        <a href="#" class="btn fs-6 text-light" id="btn_senic">
+          景点大全
+        </a>
+        <a href="#" class="btn fs-6 text-light" id="btn_route">
+          旅游路线
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item" id="item_1">
+              <a class="nav-link" href="#">泸州美食</a>
+            </li>
+            <li class="nav-item" id="item_2">
+              <a class="nav-link" href="#">时事政治</a>
+            </li>
+            <li class="nav-item" id="item_3">
+              <a class="nav-link" href="#">购物商城</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input id="input_search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <!-- <button class="btn btn-outline-light" type="submit">Search</button> -->
+            <div class="dropdown">
+              <button class="btn btn-outline-light dropdown-toggle" type="submit" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Search
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li id="search_1"><a class="dropdown-item" href="#">服务搜索</a></li>
+                <li id="search_2"><a class="dropdown-item" href="#">内容搜索</a></li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="info container mx-auto mt-5 d-none d-lg-block rounded-3" style="border-bottom: 1px solid darkgreen;">
+      <img src="./resources/logo.png" class="img-thumbnail img-fluid" alt="logo">
+      <div class="text-center shadow-sm">
+        <h1 class="text-secondary fw-bold">🐟中国酒城~</h1>
+        <p class="fs-5 text-success">高山仰止，景行行止🐾</p>
+      </div>
+    </div>
+
+
+    <div class="container mt-4 order-lg-2 text-left" id="index_account">
+      <div>
+        <p class="fs-5 fw-bold text-success">了解更多💡</p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-outline-success bg-gradient" id="account_btn">我的账户</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 右侧标签 -->
+  <main>
+    <iframe class="d-none col-12" id="sub_box" src="" frameborder="0"></iframe>
+    <div class="clearfix" id="main_box">
+      <div class="container-fluid order-lg-1" id="img_box">
+        <div class="row">
+          <div class="p-0">
+            <div id="carouselExampleCaptions" class="carousel slide overflow-hidden" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                  aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                  aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                  aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                  aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                  aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5"
+                  aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="./resources/bg001.jpg" class="d-block w-100 img-fluid" alt="...">
+                  <div class="carousel-caption d-none d-md-block text-end">
+                    <h5>清凉一夏</h5>
+                    <p>马光焱 摄</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="./resources/bg002.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block text-end">
+                    <h5>鸡鸣三省大峡谷</h5>
+                    <p>刘莹 摄</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="./resources/bg003.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block text-end">
+                    <h5>苗家美酒敬贵客</h5>
+                    <p>姜永宁 摄</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="./resources/bg004.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block text-end">
+                    <h5>酒城夜色</h5>
+                    <p>黄梦春 摄</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="./resources/bg005.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block text-end">
+                    <h5>田园春意浓</h5>
+                    <p>龙灵 摄</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="./resources/bg006.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block text-end">
+                    <h5>福宝仙境</h5>
+                    <p>王进 摄</p>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小屏登录 登录卡片 -->
+    <div class="container mt-4 text-left" id="index_account_temp">
+      <div>
+        <p class="fs-5 fw-bold text-success">了解更多💡</p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-outline-success bg-gradient" id="account_btn_temp">我的账户</button>
+        </div>
+      </div>
+    </div>
+
+
+      <br><br>
+      <h2 class="text-center">✨简介✨</h2>
+      <br>
+
+      <div class="container-fluid d-flex gift mb-2 overflow-hidden img_hover">
+        <img src="./resources/gift_1.jpg" class="img-fluid p-3" alt="gift_1" style="width: 50%;">
+        <div class="container">
+          <br><br><br><br>
+          <h3>泸川杯里春光好🥂</h3>
+          <p>
+            始建于明代万历年间的1573国宝窖池群，1996年12月经国务院批准成为行业首家“全国重点文物保护单位”，2013年3月，泸州老窖1619口百年以上酿酒窖池、16个酿酒古作坊及三大天然藏酒洞，一并入选“全国重点文物保护单位”。2006年、2012年相继入选《中国世界文化遗产预备名单》；另外，自元代传承至今的“泸州老窖酒传统酿制技艺”于2006年5月入选首批“国家非物质文化遗产名录”。
+          </p>
+        </div>
+      </div>
+
+      <div class="container-fluid d-flex gift mb-2 overflow-hidden img_hover">
+        <img src="./resources/gift_2.jpg" class="img-fluid p-3" alt="gift_1" style="width: 50%;">
+        <div class="container">
+          <br><br><br><br>
+          <h3>城下人家水上城🌱</h3>
+          <p>
+            泸州这座城市，地处四川、云南、贵州、重庆四省市的交界地带，地理位置特殊，而且，境内河网密集，水系发达，森林众多，气候宜人，是一座宜居的城市。
+          </p>
+        </div>
+      </div>
+
+      <div class="container-fluid d-flex gift mb-2 overflow-hidden img_hover">
+        <img src="./resources/gift_3.jpg" class="img-fluid p-3" alt="gift_1" style="width: 50%;">
+        <div class="container">
+          <br><br><br><br>
+          <h3>浪花淘尽英雄🔥</h3>
+          <p>
+            泸州，也是一座历史文化名城，泸州的历史，可谓源远流长，文化积淀深厚！早在西汉时期，这片土地之上，便设立了江阳侯国，南北朝时期，始更名为泸州。
+          </p>
+          <p>
+            之后的数千年，虽然这里数易其名，但是，最后，还是用了泸州这个名字。
+          </p>
+          <p>
+            我们知道，泸州有3个别称，一个叫做：江阳，一个叫做：酒城，还有一个叫做：江城。
+          </p>
+        </div>
+      </div>
+
+      <!-- 第三方链接 -->
+      <br><br>
+      <h2 class="text-center">🔗友情链接🔗</h2>
+      <br><br><br>
+      <div class="container d-flex flex-row flex-wrap justify-content-around"> 
+        <div class="card mx-auto mb-5" style="width: 18rem;" onclick="window.open('http://www.luzhou.gov.cn/')">
+          <img src="./resources/illustrations/1.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">
+              泸州市政府官网
+            </p>
+          </div>
+        </div>
+
+        <div class="card mx-auto mb-5" style="width: 18rem;" onclick="window.open('http://www.luzhou.gov.cn/zw/zfxxgkzn')">
+          <img src="./resources/illustrations/2.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">
+              泸州市政府信息公开
+            </p>
+          </div>
+        </div>
+
+        <div class="card mx-auto mb-5" style="width: 18rem;" onclick="window.open('https://data.luzhou.cn/portal/index;jsessionid=8EFE2FCDB3BDDBA18F3B5ED869D8C29A')">
+          <img src="./resources/illustrations/3.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">
+              泸州市政府数据开放平台
+            </p>
+          </div>
+        </div>
+
+        <div class="card mx-auto mb-5" style="width: 18rem;" onclick="window.open('http://www.luzhou.gov.cn/zt/zxzt/mxsh')">
+          <img src="./resources/illustrations/4.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">
+              泸州市惠民政策一本通
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <br><br><br>
+
+      <!-- 这里放个漂浮的卡片 -->
+      <div class="info_author card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4 h-100">
+            <img src="./resources/author.jpg" alt="fish" class="img-fluid img-thumbnail" style="transition: all 2s;">
+          </div>
+          <span id="info_author_close">X</span>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title text-success">iFishing>>></h5>
+              <p class="card-text">Fishing is Funny!</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    
+
+
+    <!-- 脚注说明 -->
+    <footer>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              🎉关于🎉
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>2022-2023-1学期</strong>
+              <code class="fs-5 d-block">Web前端开发技术课程设计 龚玉来 202009601322 软件Q201</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              🎉说明🎉
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>课程作业</strong>
+              <code class="fs-5 d-block">目前页面实现了响应式，但又没完全实现，还在修改中...</code>
+              <code>页面大部分只是实现了展示功能，其他功能未开发~</code>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+
+
+
+
+  </main>
+
+
+
+
+
+
+
+  <script src="./jquery/jquery-3.6.1.min.js"></script>
+  <script src="./bootstrap-5.1.3/js/bootstrap.min.js"></script>
+  <script src="./scripts/main.js"></script>
+</body>
+
+</html>

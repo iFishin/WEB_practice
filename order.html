@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>支付页面</title>
+    <link rel="Shortcut Icon" href="./resources/logo_none.png" />
+    <link rel="stylesheet" href="./css/animate/animate.min.css">
+    <link rel="stylesheet" href="./bootstrap-5.1.3/css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            margin: 0 0;
+        }
+
+        #shou {
+            height: 200px;
+            width: 490px;
+
+            margin-left: 100px;
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        #pei {
+            margin-left: 100px;
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        #zhi {
+            margin-left: 100px;
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        body {
+            background: url("img/z0.png") center/cover;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        span {
+            font-size: 1px;
+            font-family: "楷体";
+        }
+
+        #a1 {
+            width: 800px;
+        }
+
+        #a2 {
+            width: 300px;
+        }
+
+        #c3 {
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body id="d1" class="container-fluid">
+    <div class="container-fluid">
+        <img src="./resources/order/order_banner.jpg" class="img-fluid" style="width: 100%; margin:0 0;">
+    </div>
+    <h4>1.收货信息</h4>
+    <hr>
+    <div id="shou">
+        <table id="c3">
+            <tr>
+                <td>收货人姓名：</td>
+                <td><input type="text" /></td>
+                <td><span>*收货人姓名</span></td>
+            </tr>
+            <tr>
+                <td>收货地址：</td>
+                <td><select id="province" onchange="myChange()"></select>
+                    <select id="cities"></select></td>
+                <td><span>*收货人详细地址</span></td>
+            </tr>
+            <tr>
+                <td>邮政编码：</td>
+                <td><input type="text" /></td>
+                <td><span> *所在地区的邮政编码，非必填</span></td>
+            </tr>
+            <tr>
+                <td>手机号码：</td>
+                <td><input type="text" /></td>
+                <td><span>*收货人的手机号码</span></td>
+            </tr>
+            <tr>
+                <td>商品备注：</td>
+                <td><input type="text" /></td>
+                <td><span>*必填，例如：鞋子的码数</span></td>
+            </tr>
+        </table>
+    </div>
+    <h4>2.支付方式</h4>
+    <hr>
+    <div id="zhi">
+        <table id="a1">
+            <tr>
+                <td><input type="radio" name="s1" />货到付款<span>手续费：0.00</span></td>
+                <td><input type="radio" name="s1" />余额支付<span>手续费：0.00</span></td>
+                <td><input type="radio" name="s1" />支付宝<span>手续费：0.00</span></td>
+                <td><input type="radio" name="s1" />微信<span>手续费：0.00</span></td>
+            </tr>
+        </table>
+    </div>
+    <h4>3.配送方式</h4>
+    <hr>
+    <div id="pei">
+        <table id="a2">
+            <tr>
+                <td><input type="radio" name="s2" />顺丰快递</td>
+                <td><input type="radio" name="s2" />韵达快递</td>
+            </tr>
+        </table>
+    </div>
+    <h4>4.确认提交</h4>
+    <hr>
+    <div class="d-flex">
+        <button type="button" class="btn btn-success">确认提交</button>
+    </div>
+</body>
+<script type="text/javascript">
+    //数组怎么写?
+    //类型不限制
+    //长度不限制
+    //数组可以是字符串
+    var provinces = []
+    //城市
+
+    provinces["广西省"] = ["南宁", "柳州"]
+
+
+    //省份怎么来
+    //  for of 相当于foreach 遍历元素
+    //  for in 遍历下标
+    for (let i in provinces) {
+        //往省份的下拉框中添加选项
+        //<option value="i">i</option>
+        province.appendChild(new Option(i, i))
+    }
+
+    //城市里面放谁?
+    function setCity(name) {
+        for (let i of provinces[name]) {
+            cities.appendChild(new Option(i, i))
+        }
+    }
+
+    setCity(province.value)
+
+    function myChange() {
+        //清空原来的选项
+        cities.innerHTML = ""
+        //输入框 和 下拉框
+        setCity(province.value)
+    }
+
+    var b = 1;
+    //箭头函数
+    setInterval(() => {
+        //操作元素（html）的css
+        d1.style.backgroundImage = 'url("img/z' + (b % 5) + '.jpg")'
+        b++;
+    }, 1000)
+</script>
+
+</html>
